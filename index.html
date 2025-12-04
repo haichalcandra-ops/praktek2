@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persib Bandung - Maung Bandung Official</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #00539C;
+            --primary-red: #CE1126;
+            --gold: #FFD700;
+            --dark-blue: #003366;
+            --light-gray: #f8f9fa;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            --gradient-luxury: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary-red);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1.2rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--light-gray);
+            color: var(--primary-blue);
+            padding-left: 1.5rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-blue);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 83, 156, 0.8), rgba(0, 51, 102, 0.9)),
+                        url('https://picsum.photos/seed/persibstadium/1920/1080') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, white, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #b00e20;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        /* Floating Animation */
+        .floating {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-ball {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-150px) translateX(30px); }
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 2rem;
+            background: var(--gradient-primary);
+            position: relative;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Latest News Section */
+        .news {
+            padding: 5rem 2rem;
+            background: var(--light-gray);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        .news-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover .news-image {
+            transform: scale(1.1);
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--primary-red);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Players Section */
+        .players {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .players-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .player-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            border-radius: 20px;
+            overflow: hidden;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .player-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold);
+        }
+
+        .player-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .player-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .player-info {
+            padding: 1.5rem;
+        }
+
+        .player-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-position {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .player-stats {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .player-stat {
+            text-align: center;
+        }
+
+        .player-stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .player-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Match Schedule */
+        .matches {
+            padding: 5rem 2rem;
+            background: var(--light-gray);
+        }
+
+        .match-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .match-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .match-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .match-team {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .match-info {
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .match-date {
+            color: var(--primary-red);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .match-time {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .match-venue {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .vs {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* Standings Table */
+        .standings {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .standings-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .standings-table thead {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .standings-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .standings-table tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .standings-table tbody tr:hover {
+            background: var(--light-gray);
+            transform: scale(1.01);
+        }
+
+        .standings-table td {
+            padding: 1rem;
+        }
+
+        .team-position {
+            font-weight: bold;
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+        }
+
+        .persib-row {
+            background: linear-gradient(90deg, rgba(206, 17, 38, 0.1), transparent);
+        }
+
+        .points {
+            font-weight: bold;
+            color: var(--primary-red);
+            font-size: 1.1rem;
+        }
+
+        /* Merchandise Section */
+        .merchandise {
+            padding: 5rem 2rem;
+            background: var(--light-gray);
+        }
+
+        .merch-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .merch-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .merch-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .merch-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-red);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+
+        .merch-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .merch-info {
+            padding: 1.5rem;
+        }
+
+        .merch-name {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .merch-price {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .btn-buy {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 83, 156, 0.3);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 250px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-text {
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .match-card {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .match-info {
+                padding: 1rem 0;
+            }
+
+            .news-grid,
+            .players-grid,
+            .merch-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .standings-table {
+                font-size: 0.9rem;
+            }
+
+            .standings-table th,
+            .standings-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .scroll-top.show {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                PERSIB BANDUNG
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Beranda</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Tim <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#players">Pemain</a>
+                        <a href="#coach">Pelatih</a>
+                        <a href="#staff">Ofisial Tim</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Pertandingan <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#schedule">Jadwal</a>
+                        <a href="#results">Hasil</a>
+                        <a href="#standings">Klasemen</a>
+                    </div>
+                </li>
+                <li><a href="#news" class="nav-link">Berita</a></li>
+                <li><a href="#merchandise" class="nav-link">Merchandise</a></li>
+                <li><a href="#gallery" class="nav-link">Galeri</a></li>
+                <li><a href="#tickets" class="nav-link">Tiket</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating">
+            <div class="floating-ball" style="top: 10%; left: 10%;"></div>
+            <div class="floating-ball" style="top: 60%; right: 10%; animation-delay: 2s;"></div>
+            <div class="floating-ball" style="bottom: 20%; left: 50%; animation-delay: 4s;"></div>
+        </div>
+        <div class="hero-content">
+            <h1>MAUNG BANDUNG</h1>
+            <p>Kebanggaan Jawa Barat, Semangat Persatuan</p>
+            <div class="btn-group">
+                <a href="#tickets" class="btn btn-primary">Beli Tiket</a>
+                <a href="#membership" class="btn btn-secondary">Gabung Membership</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                <div class="stat-number" data-target="6">0</div>
+                <div class="stat-label">Gelar Juara</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number" data-target="89">0</div>
+                <div class="stat-label">Tahun Berdiri</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-futbol"></i></div>
+                <div class="stat-number" data-target="500">0</div>
+                <div class="stat-label">Pertandingan</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                <div class="stat-number" data-target="2000000">0</div>
+                <div class="stat-label">Bobotoh</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Section -->
+    <section class="news" id="news">
+        <div class="section-header">
+            <h2 class="section-title">Berita Terkini</h2>
+            <p>Update terbaru seputar Persib Bandung</p>
+        </div>
+        <div class="news-grid">
+            <article class="news-card fade-in">
+                <img src="https://picsum.photos/seed/news1/400/250" alt="News" class="news-image">
+                <div class="news-content">
+                    <span class="news-category">PERTANDINGAN</span>
+                    <h3 class="news-title">Persib Menang Telak 3-0 Atas Persija di Laga Derby</h3>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar"></i> 2 jam lalu</span>
+                        <span><i class="far fa-eye"></i> 15.2k views</span>
+                    </div>
+                </div>
+            </article>
+            <article class="news-card fade-in">
+                <img src="https://picsum.photos/seed/news2/400/250" alt="News" class="news-image">
+                <div class="news-content">
+                    <span class="news-category">TRANSFER</span>
+                    <h3 class="news-title">Bintang Baru Asal Brasil Resmi Bergabung</h3>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar"></i> 5 jam lalu</span>
+                        <span><i class="far fa-eye"></i> 8.7k views</span>
+                    </div>
+                </div>
+            </article>
+            <article class="news-card fade-in">
+                <img src="https://picsum.photos/seed/news3/400/250" alt="News" class="news-image">
+                <div class="news-content">
+                    <span class="news-category">TRAINING</span>
+                    <h3 class="news-title">Persib Gelar Latihan Terbuka untuk Bobotoh</h3>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar"></i> 1 hari lalu</span>
+                        <span><i class="far fa-eye"></i> 12.3k views</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Players Section -->
+    <section class="players" id="players">
+        <div class="section-header">
+            <h2 class="section-title">Pemain Bintang</h2>
+            <p>Skuad Maung Bandung Musim Ini</p>
+        </div>
+        <div class="players-grid">
+            <div class="player-card fade-in">
+                <img src="https://picsum.photos/seed/player1/300/400" alt="Player" class="player-image">
+                <div class="player-info">
+                    <h3 class="player-name">David da Silva</h3>
+                    <p class="player-position">Striker</p>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">15</div>
+                            <div class="player-stat-label">Gol</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">8</div>
+                            <div class="player-stat-label">Assist</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">9</div>
+                            <div class="player-stat-label">No</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="player-card fade-in">
+                <img src="https://picsum.photos/seed/player2/300/400" alt="Player" class="player-image">
+                <div class="player-info">
+                    <h3 class="player-name">Marc Klok</h3>
+                    <p class="player-position">Gelandang</p>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">7</div>
+                            <div class="player-stat-label">Gol</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">12</div>
+                            <div class="player-stat-label">Assist</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">23</div>
+                            <div class="player-stat-label">No</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="player-card fade-in">
+                <img src="https://picsum.photos/seed/player3/300/400" alt="Player" class="player-image">
+                <div class="player-info">
+                    <h3 class="player-name">Nick Kuipers</h3>
+                    <p class="player-position">Bek</p>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">3</div>
+                            <div class="player-stat-label">Gol</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">45</div>
+                            <div class="player-stat-label">Intersep</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">4</div>
+                            <div class="player-stat-label">No</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="player-card fade-in">
+                <img src="https://picsum.photos/seed/player4/300/400" alt="Player" class="player-image">
+                <div class="player-info">
+                    <h3 class="player-name">Teja Paku Alam</h3>
+                    <p class="player-position">Kiper</p>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">0</div>
+                            <div class="player-stat-label">Gol</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">12</div>
+                            <div class="player-stat-label">Clean Sheet</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">1</div>
+                            <div class="player-stat-label">No</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Match Schedule -->
+    <section class="matches" id="schedule">
+        <div class="section-header">
+            <h2 class="section-title">Jadwal Pertandingan</h2>
+            <p>Jangan lewatkan laga seru Persib Bandung</p>
+        </div>
+        <div class="match-container">
+            <div class="match-card fade-in">
+                <div class="match-team">
+                    <div class="team-logo"><i class="fas fa-shield-alt"></i></div>
+                    <div class="team-name">Persib Bandung</div>
+                </div>
+                <div class="match-info">
+                    <div class="match-date">Sabtu, 15 Desember 2024</div>
+                    <div class="match-time">19:00 WIB</div>
+                    <div class="match-venue">Stadion Gelora Bandung</div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="match-team">
+                    <div class="team-name">Arema FC</div>
+                    <div class="team-logo"><i class="fas fa-shield-alt"></i></div>
+                </div>
+            </div>
+            <div class="match-card fade-in">
+                <div class="match-team">
+                    <div class="team-logo"><i class="fas fa-shield-alt"></i></div>
+                    <div class="team-name">Persib Bandung</div>
+                </div>
+                <div class="match-info">
+                    <div class="match-date">Rabu, 20 Desember 2024</div>
+                    <div class="match-time">20:30 WIB</div>
+                    <div class="match-venue">Stadion Pakansari</div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="match-team">
+                    <div class="team-name">Bali United</div>
+                    <div class="team-logo"><i class="fas fa-shield-alt"></i></div>
+                </div>
+            </div>
+            <div class="match-card fade-in">
+                <div class="match-team">
+                    <div class="team-logo"><i class="fas fa-shield-alt"></i></div>
+                    <div class="team-name">Persib Bandung</div>
+                </div>
+                <div class="match-info">
+                    <div class="match-date">Minggu, 24 Desember 2024</div>
+                    <div class="match-time">15:00 WIB</div>
+                    <div class="match-venue">Stadion Gelora Bandung</div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="match-team">
+                    <div class="team-name">PSM Makassar</div>
+                    <div class="team-logo"><i class="fas fa-shield-alt"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Standings -->
+    <section class="standings" id="standings">
+        <div class="section-header">
+            <h2 class="section-title">Klasemen Liga 1</h2>
+            <p>Peringkat sementara musim 2024/2025</p>
+        </div>
+        <div class="standings-container">
+            <table class="standings-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Tim</th>
+                        <th>Main</th>
+                        <th>M</th>
+                        <th>S</th>
+                        <th>K</th>
+                        <th>GM</th>
+                        <th>GK</th>
+                        <th>Poin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="team-position">1</td>
+                        <td>Borneo FC</td>
+                        <td>15</td>
+                        <td>10</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>28</td>
+                        <td>12</td>
+                        <td class="points">33</td>
+                    </tr>
+                    <tr class="persib-row">
+                        <td class="team-position">2</td>
+                        <td><strong>Persib Bandung</strong></td>
+                        <td>15</td>
+                        <td>9</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>25</td>
+                        <td>10</td>
+                        <td class="points">31</td>
+                    </tr>
+                    <tr>
+                        <td class="team-position">3</td>
+                        <td>PSM Makassar</td>
+                        <td>15</td>
+                        <td>9</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>24</td>
+                        <td>14</td>
+                        <td class="points">30</td>
+                    </tr>
+                    <tr>
+                        <td class="team-position">4</td>
+                        <td>Bali United</td>
+                        <td>15</td>
+                        <td>8</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>22</td>
+                        <td>11</td>
+                        <td class="points">29</td>
+                    </tr>
+                    <tr>
+                        <td class="team-position">5</td>
+                        <td>Arema FC</td>
+                        <td>15</td>
+                        <td>7</td>
+                        <td>6</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>13</td>
+                        <td class="points">27</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Merchandise -->
+    <section class="merchandise" id="merchandise">
+        <div class="section-header">
+            <h2 class="section-title">Official Merchandise</h2>
+            <p>Dapatkan merchandise resmi Persib Bandung</p>
+        </div>
+        <div class="merch-grid">
+            <div class="merch-card fade-in">
+                <span class="merch-badge">NEW</span>
+                <img src="https://picsum.photos/seed/jersey1/300/300" alt="Merch" class="merch-image">
+                <div class="merch-info">
+                    <h3 class="merch-name">Home Jersey 2024/25</h3>
+                    <p class="merch-price">Rp 450.000</p>
+                    <button class="btn-buy">Beli Sekarang</button>
+                </div>
+            </div>
+            <div class="merch-card fade-in">
+                <span class="merch-badge">HOT</span>
+                <img src="https://picsum.photos/seed/jersey2/300/300" alt="Merch" class="merch-image">
+                <div class="merch-info">
+                    <h3 class="merch-name">Away Jersey 2024/25</h3>
+                    <p class="merch-price">Rp 450.000</p>
+                    <button class="btn-buy">Beli Sekarang</button>
+                </div>
+            </div>
+            <div class="merch-card fade-in">
+                <img src="https://picsum.photos/seed/scarf/300/300" alt="Merch" class="merch-image">
+                <div class="merch-info">
+                    <h3 class="merch-name">Scarf Persib Premium</h3>
+                    <p class="merch-price">Rp 150.000</p>
+                    <button class="btn-buy">Beli Sekarang</button>
+                </div>
+            </div>
+            <div class="merch-card fade-in">
+                <img src="https://picsum.photos/seed/cap/300/300" alt="Merch" class="merch-image">
+                <div class="merch-info">
+                    <h3 class="merch-name">Topi Persib Original</h3>
+                    <p class="merch-price">Rp 120.000</p>
+                    <button class="btn-buy">Beli Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <h2 class="section-title">Galeri Foto</h2>
+            <p>Momen-momen tak terlupakan Persib Bandung</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/gallery1/400/300" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h4>Kemenangan Derby Jawa Barat</h4>
+                        <p>Stadion Gelora Bandung</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/gallery2/400/300" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h4>Latihan Bersama</h4>
+                        <p>Persib Training Center</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/gallery3/400/300" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h4>Suporter Bobotoh</h4>
+                        <p>Tribun Utara Stadion</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/gallery4/400/300" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h4>Celebration Goal</h4>
+                        <p>Persib vs Arema</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/gallery5/400/300" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h4>Trophy Presentation</h4>
+                        <p>Piala Presiden 2024</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/gallery6/400/300" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h4>Team Photo</h4>
+                        <p>Skuad 2024/2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Tentang Persib</h3>
+                <p>Persib Bandung adalah klub sepak bola profesional Indonesia yang berbasis di Bandung, Jawa Barat. Didirikan pada tahun 1933.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Link Cepat</h3>
+                <ul>
+                    <li><a href="#news">Berita</a></li>
+                    <li><a href="#players">Pemain</a></li>
+                    <li><a href="#schedule">Jadwal</a></li>
+                    <li><a href="#tickets">Tiket</a></li>
+                    <li><a href="#merchandise">Merchandise</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kontak</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Jl. Ahmad Yani No. 289, Bandung</li>
+                    <li><i class="fas fa-phone"></i> +62 22 730 2222</li>
+                    <li><i class="fas fa-envelope"></i> info@persib.co.id</li>
+                    <li><i class="fas fa-globe"></i> www.persib.co.id</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Dapatkan berita terbaru Persib langsung di email Anda</p>
+                <form style="margin-top: 1rem;">
+                    <input type="email" placeholder="Email Anda" style="padding: 0.5rem; width: 100%; border-radius: 5px; border: none; margin-bottom: 0.5rem;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Persib Bandung. All Rights Reserved. Made with <i class="fas fa-heart" style="color: var(--primary-red);"></i> for Bobotoh</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hide');
+            }, 1000);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Scroll to Top
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const countUp = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(countUp, 1);
+                } else {
+                    counter.innerText = target.toLocaleString();
+                }
+            });
+        };
+
+        // Intersection Observer for Fade In Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Start counter animation when stats section is visible
+                    if (entry.target.querySelector('.stat-number')) {
+                        countUp();
+                        observer.unobserve(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Gallery Lightbox Effect (Simple Implementation)
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.9);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 10000;
+                    cursor: pointer;
+                `;
+                
+                const modalImg = document.createElement('img');
+                modalImg.src = img.src;
+                modalImg.style.cssText = `
+                    max-width: 90%;
+                    max-height: 90%;
+                    object-fit: contain;
+                `;
+                
+                modal.appendChild(modalImg);
+                document.body.appendChild(modal);
+                
+                modal.addEventListener('click', () => {
+                    document.body.removeChild(modal);
+                });
+            });
+        });
+
+        // Add hover effect to cards
+        document.querySelectorAll('.news-card, .player-card, .merch-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Dynamic year in footer
+        document.querySelector('.footer-bottom p').innerHTML = 
+            &copy; ${new Date().getFullYear()} Persib Bandung. All Rights Reserved. Made with <i class="fas fa-heart" style="color: var(--primary-red);"></i> for Bobotoh;
+    </script>
+</body>
+</html>
